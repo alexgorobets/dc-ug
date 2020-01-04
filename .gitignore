@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+/setup/ДЦ-Юг.zip
+/.idea/
