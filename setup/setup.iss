@@ -39,7 +39,6 @@ Source: "src\{#MyAppExeName}"; DestDir: "{app}\bin"; Flags: ignoreversion
 Source: "src\install.bat"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "src\uninstall.bat"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "..\dc-ug\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
-Source: "..\Pipfile"; DestDir: "{app}"; Flags: ignoreversion 
 
 [Icons]
 Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"

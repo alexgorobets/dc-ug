@@ -1,8 +1,7 @@
 @echo off
 
-echo =======================
-pipenv --rm
-echo virtual environment is removed
-echo =======================
+set venv=dc-ug
 
-rmdir /S /Q "%PROGRAMFILES(X86)%\DcUg"
+echo %venv% virtual environment is being removed
+pew rm %venv%
+echo %venv% virtual environment is removed
