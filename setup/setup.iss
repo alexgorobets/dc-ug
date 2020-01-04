@@ -6,8 +6,6 @@
 #define MyAppPublisher "ннн мож юря"
 #define MyAppExeName "dcug.bat"
 
-#include "environment.iss"
-
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
@@ -51,16 +49,3 @@ Filename: "{app}\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringC
 
 [UninstallRun]
 Filename: "{app}\uninstall.bat";
-
-[Code]
-procedure CurStepChanged(CurStep: TSetupStep);
-begin
-    if CurStep = ssPostInstall 
-    then EnvAddPath(ExpandConstant('{app}') +'\bin');
-end;
-
-procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
-begin
-    if CurUninstallStep = usPostUninstall
-    then EnvRemovePath(ExpandConstant('{app}') +'\bin');
-end;
