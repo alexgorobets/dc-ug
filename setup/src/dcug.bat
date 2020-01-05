@@ -1,3 +1,5 @@
 @echo off
 
-pipenv run %PROGRAMFILES(X86)%\DcUg\bin\main.py
+set venv=dc-ug
+
+pew in %venv% main.py %*
