@@ -5,6 +5,8 @@
 #define MyAppVersion "1.0"
 #define MyAppPublisher "ннн мож юря"
 #define MyAppExeName "dcug.bat"
+#define MyAppIcoName "dcug.ico"
+#define Python "python-3.8.1-amd64-webinstall.exe"
 
 #include "environment.iss"
 
@@ -23,7 +25,8 @@ OutputDir="дж-чЦ"
 OutputBaseFilename=dcug-setup
 Compression=lzma
 SolidCompression=yes
-ChangesEnvironment=true
+ChangesEnvironment=yes
+AlwaysRestart=yes
 
 ; More options in setup section as well as other sections like Files, Components, Tasks...
 
@@ -32,19 +35,22 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
 Source: "src\{#MyAppExeName}"; DestDir: "{app}\bin"; Flags: ignoreversion 
 Source: "src\install.bat"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "src\uninstall.bat"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "..\dc-ug\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
+Source: "src\{#MyAppIcoName}"; DestDir: "{app}"
+Source: "src\{#Python}"; DestDir: "{app}"; Flags: ignoreversion deleteafterinstall
 
 [Icons]
 Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
 
 [Run]
+Filename: "{app}\{#Python}"; Parameters: "/passive"
 Filename: "{app}\install.bat";
 Filename: "{app}\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 

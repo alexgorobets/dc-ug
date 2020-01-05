@@ -2,4 +2,4 @@
 
 set venv=dc-ug
 
-pew in %venv% main.py
+pew in %venv% main.py %*
