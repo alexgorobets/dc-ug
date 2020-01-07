@@ -21,3 +21,7 @@ echo %venv% virtual environment is being created
 py -%version% -m pew new --python %version% --dont-activate %venv%
 echo %venv% virtual environment created
 echo =======================
+
+echo packages from 'pycode\requirements.txt' are being installed in %venv% virtual environment
+py -%version% -m pew in %venv% pip install -r pycode\requirements.txt
+echo packages from 'requirements.txt' are installed in %venv% virtual environment
