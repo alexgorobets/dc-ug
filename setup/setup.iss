@@ -4,10 +4,8 @@
 #define MyAppName "дж-чЦ (DcUg)"
 #define MyAppVersion "1.0"
 #define MyAppPublisher "ннн мож юря"
-#define MyAppExeName "dcug.bat"
+#define MyAppExeName "dcugw.exe"
 #define MyAppIcoName "dcug.ico"
-#define Python "python-3.8.1-amd64-webinstall.exe"
-#define vc_redist "vc_redist.x64.exe"
 
 #include "environment.iss"
 
@@ -40,36 +38,26 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "src\{#MyAppExeName}"; DestDir: "{app}\pycode"; Flags: ignoreversion 
-Source: "src\install.bat"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "src\uninstall.bat"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "..\dc-ug\*"; DestDir: "{app}\pycode"; Flags: ignoreversion recursesubdirs createallsubdirs 
+Source: "..\dc-ug\bin\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
+Source: "..\dc-ug\dist\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
 Source: "src\{#MyAppIcoName}"; DestDir: "{app}"
-Source: "src\{#Python}"; DestDir: "{app}"; Flags: ignoreversion deleteafterinstall
-Source: "src\{#vc_redist}"; DestDir: "{app}"; Flags: ignoreversion deleteafterinstall
 
 [Icons]
-Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\pycode\{#MyAppExeName}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\pycode\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
+Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#vc_redist}"; Parameters: "/install /passive /norestart"
-Filename: "{app}\{#Python}"; Parameters: "/passive"
-Filename: "{app}\install.bat";
-Filename: "{app}\pycode\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-
-[UninstallRun]
-Filename: "{app}\uninstall.bat";
+Filename: "{app}\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Code]
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
     if CurStep = ssPostInstall
-    then EnvAddPath(ExpandConstant('{app}') +'\pycode');
+    then EnvAddPath(ExpandConstant('{app}') +'\bin');
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
     if CurUninstallStep = usPostUninstall
-    then EnvRemovePath(ExpandConstant('{app}') +'\pycode');
+    then EnvRemovePath(ExpandConstant('{app}') +'\bin');
 end;
