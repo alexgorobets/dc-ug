@@ -1,0 +1,389 @@
+;----------------------------------------------------------------------------
+;		ОПИСАНИЕ ФУНКЦИЙ
+;----------------------------------------------------------------------------
+BegLcFun
+	;-----------------------------------------------------
+	;; Доступность режима станции для выдачи команд ТУ
+	;-----------------------------------------------------
+	;для команд когда станция в реж ДУ, АУМ или переходной в который он попал из ДУ или АУМ
+	START_FUN	AccStnDUCmdTu,<Stn>
+		AccStnDuCmdTu:	Proc_And	<Stn-obj_Exist, Stn-obj_ok_Ts,  Stn-STN_UnSUAUSDU,  Stn-STN_UnRU, AccStnDuCmdTu1>
+		AccStnDuCmdTu1:	Proc_Or		<Stn-STN_DU, Stn-STN_AUM, AccStnDuCmdTu2>
+		AccStnDuCmdTu2:	Proc_And	<Stn-STN_Trans, AccStnDuCmdTu3>
+		AccStnDuCmdTu3:	Proc_Or		<Stn-STN_PrDU, Stn-STN_PrAUM, Stn-STN_PrUnKnownMode>;;STN_PrUnKnownMode использован для случая момента загрузки
+	END_FUN
+	;для команд когда станция в реж АУ, СУ или СДУ
+	START_FUN	AccStnSUCmdTu,<Stn>
+		AccStnSUCmdTu:	Proc_And	<Stn-obj_Exist, Stn-obj_ok_Ts,  Stn-STN_UnDU,  Stn-STN_UnRU, Stn-STN_SUAUSDU,  Stn-STN_UnAUM, Stn-STN_UnTrans>
+	END_FUN
+	START_FUN	AccStnRUCmdTu,<Stn>
+		AccStnRUCmdTu:	Proc_And	<Stn-obj_Exist, Stn-obj_ok_Ts,  Stn-STN_RU>
+	END_FUN
+
+	;-----------------------------------------------------
+	;;Режимы управления станцией
+	;-----------------------------------------------------
+	START_FUN	CheckDU,<dpru, dpsdu, dpklru, dpvsu, dpsu, dpOkTs>
+		CheckDU:	Proc_And<dpOkTs-obj_Exist,dpOkTs-obj_ok_Ts,CheckDU1>
+		CheckDU1:	Proc_Or	<CheckDU11,CheckDU12,CheckDU13,CheckDU14,CheckDU15,CheckDU16>
+		CheckDU11:Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_Exist,dpsu-obj_Exist,		dpru-DP_s2,dpvsu-DP_s1,dpsu-DP_s1>				;релейное ЭЦ без СДУ
+		CheckDU12:Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_Exist,dpvsu-obj_Exist,dpsu-obj_Exist,			dpru-DP_s2,dpsdu-DP_s1,dpvsu-DP_s1,dpsu-DP_s1>	;релейное ЭЦ с СДУ
+		CheckDU13:Proc_And	<dpklru-obj_Exist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_Exist,		dpru-DP_s2,dpklru-DP_s1,dpsu-DP_s1>				;ЭЦ-ЕМ
+		CheckDU14:Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_UnExist,	dpru-DP_s2>										;только DP-РУ
+		CheckDU15:Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_Exist,	dpsu-DP_s2>										;Ebilock
+		CheckDU16:Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_Exist,dpvsu-obj_UnExist,dpsu-obj_Exist,		dpsu-DP_s2,dpsdu-DP_s1>							;Ebilock с СДУ
+	END_FUN
+	START_FUN	CheckRU,<dpru, dpsdu, dpklru, dpvsu, dpsu, dpOkTs>
+		CheckRU:	Proc_And<dpOkTs-obj_Exist,dpOkTs-obj_ok_Ts,CheckRU1>
+		CheckRU1:	Proc_Or	<CheckRU11,CheckRU12,CheckRU13,CheckRU14,CheckRU15,CheckRU16>
+		CheckRU11:Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_Exist,dpsu-obj_Exist,		dpru-DP_s1,dpvsu-DP_s1,dpsu-DP_s1>
+		CheckRU12:Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_Exist,dpvsu-obj_Exist,dpsu-obj_Exist,			dpru-DP_s1,dpsdu-DP_s1,dpvsu-DP_s1,dpsu-DP_s1>
+		CheckRU13:Proc_And	<dpklru-obj_Exist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_Exist,		dpru-DP_s1,dpklru-DP_s2,dpsu-DP_s1>			;ЭЦ-ЕМ
+		CheckRU14:Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_UnExist,	dpru-DP_s4>									;только DP-РУ(РПЦ)
+		CheckRU15:Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_Exist,	dpsu-DP_s1>									;Ebilock
+		CheckRU16:Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_Exist,dpvsu-obj_UnExist,dpsu-obj_Exist,		dpsu-DP_s1>									;Ebilock с СДУ
+	END_FUN
+	START_FUN	CheckSUAU,<dpru, dpsdu, dpklru, dpvsu, dpsu, dpOkTs>
+		CheckSUAU:		Proc_And<dpOkTs-obj_Exist,dpOkTs-obj_ok_Ts,CheckSUAU1>
+		CheckSUAU1:		Proc_Or	<CheckSUAU_AU,CheckSUAU_SU,CheckSUAU_SDU>
+		;;
+		CheckSUAU_AU:	Proc_And	<dpru-obj_UnExist,dpsdu-obj_UnExist,dpklru-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_UnExist>
+		;;
+		CheckSUAU_SU:	Proc_Or		<CheckSUAU_SU1,CheckSUAU_SU2,CheckSUAU_SU3,CheckSUAU_SU4,CheckSUAU_SU5,CheckSUAU_SU6>
+			CheckSUAU_SU1:	Proc_And	<dpru-obj_Exist,dpsdu-obj_Exist,dpklru-obj_UnExist,dpvsu-obj_Exist,dpsu-obj_Exist,		dpru-DP_s1,dpsu-DP_s1,CheckSUAU_SU11>	;релейное ЭЦ с СДУ
+			CheckSUAU_SU11:	Proc_Or		<CheckSUAU_SU111,CheckSUAU_SU112>
+			CheckSUAU_SU111:	Proc_And	<dpsdu-DP_s1,dpvsu-DP_s2>
+			CheckSUAU_SU112:	Proc_And	<dpsdu-DP_s2,dpvsu-DP_s1>
+			;
+			CheckSUAU_SU2:	Proc_And	<dpru-obj_Exist,dpsdu-obj_UnExist,dpklru-obj_UnExist,dpvsu-obj_Exist,dpsu-obj_Exist,	dpru-DP_s1,dpvsu-DP_s2>		;dpsu-DP_s1,	;релейное ЭЦ без СДУ
+			CheckSUAU_SU3:	Proc_And	<dpru-obj_Exist,dpsdu-obj_UnExist,dpklru-obj_Exist,dpvsu-obj_UnExist,dpsu-obj_Exist,	dpru-DP_s1,dpsu-DP_s1,dpklru-DP_s1>			;ЭЦ-ЕМ
+			CheckSUAU_SU4:	Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_UnExist,dpru-DP_s3>									;только DP-РУ(РПЦ)
+			CheckSUAU_SU5:	Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_Exist,dpsu-DP_s3>									;Ebilock
+			CheckSUAU_SU6:	Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_Exist,dpvsu-obj_UnExist,dpsu-obj_Exist,	dpsu-DP_s3,dpsdu-DP_s1>						;Ebilock с СДУ
+		;;                                                                                                                                                                  
+		CheckSUAU_SDU:	Proc_Or		<CheckSUAU_SDU1,CheckSUAU_SDU2>
+			CheckSUAU_SDU1:	Proc_And	<dpru-obj_Exist,dpsdu-obj_Exist,dpklru-obj_UnExist,dpvsu-obj_Exist,dpsu-obj_Exist,	dpru-DP_s2,dpsdu-DP_s2,dpvsu-DP_s1,dpsu-DP_s1>
+			CheckSUAU_SDU2:	Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_Exist,dpvsu-obj_UnExist,dpsu-obj_Exist,	dpsdu-DP_s2>						;Ebilock с СДУ
+	END_FUN
+	START_FUN	CheckTRANS,<dpru, dpsdu, dpklru, dpvsu, dpsu, dpOkTs>
+		CheckTRANS:		Proc_And	<dpOkTs-obj_Exist,dpOkTs-obj_ok_Ts,CheckTRANS1>
+		CheckTRANS1:	Proc_Or		<CheckTRANS11,CheckTRANS12,CheckTRANS13,CheckTRANS14,CheckTRANS15,CheckTRANS16>
+		CheckTRANS11:	Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_Exist,dpsu-obj_Exist,	dpru-DP_s2,dpvsu-DP_s1,dpsu-DP_s2>				;релейное ЭЦ без СДУ
+		CheckTRANS12:	Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_Exist,dpvsu-obj_Exist,dpsu-obj_Exist,		dpru-DP_s2,dpsdu-DP_s1,dpvsu-DP_s1,dpsu-DP_s2>	;релейное ЭЦ с СДУ
+		CheckTRANS13:	Proc_And	<dpklru-obj_Exist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_Exist,	dpru-DP_s2,dpklru-DP_s1,dpsu-DP_s2>				;ЭЦ-ЕМ
+		CheckTRANS14:	Proc_And	<dpklru-obj_UnExist,dpru-obj_Exist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_UnExist,dpru-DP_s1>										;только DP-РУ(РПЦ)
+		CheckTRANS15:	Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_UnExist,dpvsu-obj_UnExist,dpsu-obj_Exist,dpsu-DP_s4>										;Ebilock
+		CheckTRANS16:	Proc_And	<dpklru-obj_UnExist,dpru-obj_UnExist,dpsdu-obj_Exist,dpvsu-obj_UnExist,dpsu-obj_Exist,	dpsu-DP_s4,dpsdu-DP_s1>							;Ebilock с СДУ
+	END_FUN
+	;-----------------------------------------------------
+	;;Состояния Фидеров
+	;-----------------------------------------------------
+	;первый фидер есть а второго нет
+	START_FUN	CheckKF1,<dpkf1, dpkf2>
+		CheckKF1:		Proc_And	<CheckKF1_1,CheckKF1_2>
+
+		CheckKF1_1:		Proc_And	<dpkf1-obj_Exist,dpkf1-DP_Uns2,dpkf1-obj_ok_Ts>;;первый есть и авария
+		CheckKF1_2:		Proc_Or		<dpkf2-obj_UnExist,dpkf2-DP_s2>;;второй или не сущ или норма
+	END_FUN
+	;обоих нет
+	START_FUN	CheckKF12,<dpkf1, dpkf2>
+		CheckKF12:		Proc_Or		<CheckKF12_1,CheckKF12_2,CheckKF12_3,CheckKF12_4>
+
+		CheckKF12_1:	Proc_And	<dpkf1-obj_UnExist,dpkf2-obj_Exist,dpkf2-DP_Uns2,dpkf2-obj_ok_Ts>;один не сущ а на другом авария
+		CheckKF12_2:	Proc_And	<dpkf2-obj_UnExist,dpkf1-obj_Exist,dpkf1-DP_Uns2,dpkf1-obj_ok_Ts>;один не сущ а на другом авария
+		CheckKF12_3:	Proc_And	<dpkf1-obj_Exist,dpkf2-obj_Exist,dpkf1-DP_Uns2,dpkf1-obj_ok_Ts,dpkf2-DP_Uns2,dpkf2-obj_ok_Ts>;оба сущ и на обоих авария
+		CheckKF12_4:	Proc_And	<dpkf1-obj_UnExist,dpkf2-obj_UnExist>;ни одного не сущ
+	END_FUN
+	;все есть
+	START_FUN	CheckKFnorm,<dpkf1, dpkf2>
+		CheckKFnorm:		Proc_And	<CheckKFnorm_1,CheckKFnorm_2>
+		CheckKFnorm_1:	Proc_Or		<dpkf1-obj_UnExist,dpkf1-DP_s2>
+		CheckKFnorm_2:	Proc_Or		<dpkf2-obj_UnExist,dpkf2-DP_s2>
+	END_FUN
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////СВЕТОФОРЫ//////////////////////////////////////////
+;////////////////////////////////////////////////////////////////////////////////////
+	; Закрытие светофоров
+	START_FUN	SVT_Closed,<Ks>
+		SVT_Closed:	Proc_And	<Ks-KS_Zak>
+	END_FUN
+	; Открытие поездным
+	START_FUN	SVT_Open_poezd,<Ks>
+		SVT_Open_poezd:	Proc_And	<Ks-KS_Pz>
+	END_FUN
+	; Автодействие выставленно
+	START_FUN	SVT_Ad,<Ks>
+		SVT_Ad:	Proc_And	<Ks-KS_AutoD>
+	END_FUN
+	; Автодействие снято
+	START_FUN	SVT_UnAd,<Ks>
+		SVT_UnAd:	Proc_And	<Ks-KS_UnAutoD>
+	END_FUN
+	; Открытие маневровым
+	START_FUN	SVT_Open_manevr,<Ks>
+		SVT_Open_manevr:	Proc_And	<Ks-KS_Mnv>
+	END_FUN
+	; светофорная кнопка нажата
+	START_FUN	BSVT_ON,<DP>
+		BSVT_ON:	Proc_Or		<DP-obj_UnExist,BSVT_ON1>
+		BSVT_ON1:	Proc_Or		<BSVT_ON11,BSVT_ON12>
+		BSVT_ON11:	Proc_Fun	DP_Sost2,<DP>;кнопка нажата
+		BSVT_ON12:	Proc_Fun	DP_Sost3,<DP>;у светофора выдержка времени
+	END_FUN
+	; светофорная кнопка не нажата
+	START_FUN	BSVT_OFF,<DP>
+		BSVT_OFF:	Proc_Or		<DP-obj_UnExist,BSVT_OFF1>
+		BSVT_OFF1:	Proc_Fun	DP_Sost1,<DP>
+	END_FUN
+	; светофор не заблокирован
+	START_FUN	SVT_UnBlk,<Ks>
+		SVT_UnBlk:	Proc_Or		<Ks-obj_UnExist,SVT_UnBlk1>
+		SVT_UnBlk1:	Proc_And	<Ks-KS_UnBlk>
+	END_FUN
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////СЕКЦИИ//////////////////////////////////////////
+;////////////////////////////////////////////////////////////////////////////////////
+	; Секция свободна и не участвует в других маршрутах
+	START_FUN	SP_Acc,<SP>
+		SP_Acc:	Proc_Or		<sp-obj_UnExist,SP_Acc1>
+		SP_Acc1:	Proc_And	<sp-SP_UnZM,sp-SP_UnZMLog,sp-Sp_Free,sp-Sp_UnIr>
+	END_FUN
+	; Секция не участвует в других маршрутах в маневровом
+	START_FUN	SP_Acc_Mn,<SP>
+		SP_Acc_Mn:	Proc_Or		<sp-obj_UnExist,SP_Acc_Mn1>
+		SP_Acc_Mn1:	Proc_And	<sp-SP_UnZM,sp-SP_UnZMLog,sp-Sp_UnIr>
+	END_FUN
+	; Секция замкнута по маршруту и свободна
+	START_FUN	SP_Zs_Free,<SP>
+		SP_Zs_Free:		Proc_Or		<sp-obj_UnExist,SP_Zs_Free1>
+		SP_Zs_Free1:	Proc_And	<sp-SP_ZM,sp-Sp_UnIr,sp-Sp_Free>
+	END_FUN
+	; Секция замкнута в маневровом маршруте (без проверки свободности)
+	START_FUN	SP_Zs_Mn,<SP>
+		SP_Zs_Mn:	Proc_Or		<sp-obj_UnExist,SP_Zs_Mn1>
+		SP_Zs_Mn1:	Proc_And	<sp-SP_ZM,sp-Sp_UnIr>
+	END_FUN
+	; Секция замкнута с ИР
+	START_FUN	SP_Zs_Ir,<SP>
+		SP_Zs_Ir:	Proc_Or		<sp-obj_UnExist,SP_Zs_Ir1>
+		SP_Zs_Ir1:	Proc_And	<sp-SP_ZM,sp-Sp_Ir>
+	END_FUN
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////ПУТЬ//////////////////////////////////////////
+;////////////////////////////////////////////////////////////////////////////////////
+	; Путь свободен и не участвует в других маршрутах любого направления
+	START_FUN	KP_Acc,<KP>
+		KP_Acc:	Proc_Or		<KP-obj_UnExist,KP_Acc1>
+		KP_Acc1:	Proc_And	<Kp-KP_UnZM, Kp-KP_UnZMLog, Kp-KP_Free>
+	END_FUN	
+	; Путь не участвует в других маршрутах любого направления в маневровом
+	START_FUN	KP_Acc_Mn,<KP>
+		KP_Acc_Mn:	Proc_Or		<KP-obj_UnExist,KP_Acc_Mn1>
+		KP_Acc_Mn1:	Proc_And	<Kp-KP_UnZMLog>
+	END_FUN
+	
+	; Путь доступен для четных маршрутов
+	START_FUN	KP_Acc_Tmar,<KP>
+		KP_Acc_Tmar:	Proc_Or		<KP-obj_UnExist,KP_Acc_Tmar1>
+		KP_Acc_Tmar1:	Proc_And	<Kp-KP_UnZM_T, Kp-KP_Free>;ЧИ под током
+	END_FUN	
+	; Путь доступен для нечетных маршрутов
+	START_FUN	KP_Acc_Nmar,<KP>
+		KP_Acc_Nmar:	Proc_Or		<KP-obj_UnExist,KP_Acc_Nmar1>
+		KP_Acc_Nmar1:	Proc_And	<Kp-KP_UnZM_N, Kp-KP_Free>;НИ под током
+	END_FUN	
+	
+	; у Пути нет четного исключения
+	START_FUN	KP_Acc_UnZM_T,<KP>
+		KP_Acc_UnZM_T:	Proc_Or		<KP-obj_UnExist,KP_Acc_UnZM_T1>
+		KP_Acc_UnZM_T1:	Proc_And	<Kp-KP_UnZM_T>;ЧИ под током
+	END_FUN	
+	; у Пути нет нечетного исключения
+	START_FUN	KP_Acc_UnZM_N,<KP>
+		KP_Acc_UnZM_N:	Proc_Or		<KP-obj_UnExist,KP_Acc_UnZM_N1>
+		KP_Acc_UnZM_N1:	Proc_And	<Kp-KP_UnZM_N>;НИ под током
+	END_FUN	
+
+	; Путь свободен
+	START_FUN	KP_UnBusy,<KP>
+		KP_UnBusy:		Proc_Or		<KP-obj_UnExist,KP_UnBusy_1>
+		KP_UnBusy_1:	Proc_And	<Kp-KP_Free>
+	END_FUN
+	
+	; Путь замкнут по маршруту любого направления
+	START_FUN	KP_Zs,<KP>
+		KP_Zs:	Proc_Or		<KP-obj_UnExist,KP_Zs_1>
+		KP_Zs_1:Proc_And	<Kp-KP_ZM>
+	END_FUN
+	
+	; Путь исключен по нечетному маршруту (замкнут в нечетном маршруте) 
+	START_FUN	KP_ZsN,<KP>
+		KP_ZsN:	Proc_Or		<KP-obj_UnExist,KP_ZsN_1>
+		KP_ZsN_1:	Proc_And	<Kp-KP_ZM_T>;ЧИ обесточено
+	END_FUN
+	
+	; Путь исключен по четному маршруту(замкнут в четном маршруте) 
+	START_FUN	KP_ZsT,<KP>
+		KP_ZsT:		Proc_Or		<KP-obj_UnExist,KP_ZsT_1>
+		KP_ZsT_1:	Proc_And	<Kp-KP_ZM_N>;НИ обесточено
+	END_FUN
+	
+	START_FUN	KP_Obkatan,<KP>
+		KP_Obkatan:		Proc_Or		<KP-obj_UnExist,KP_Obkatan_1>
+		KP_Obkatan_1:	Proc_And	<Kp-KP_UnObkat>;нет необходимости обкатки
+	END_FUN
+	
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////СТРЕЛКА//////////////////////////////////////////	
+;////////////////////////////////////////////////////////////////////////////////////
+	
+	; Стрелка не блокирована индивидуально
+	START_FUN	ST_UnBlk,<st>
+		ST_UnBlk:	Proc_Or		<st-obj_UnExist,st-St_UnOs>
+	END_FUN
+	;проверка возможности использ стрелки в маршруте у которого есть негаборитность
+	START_FUN	St_NG,<SpNg,stP,stM>
+		St_NG:		Proc_Or		<St_NG1,St_NG2,SpNg-SP_Free>
+		St_NG1:		Proc_And	<stP-obj_Exist,stP-St_PK>
+		St_NG2:		Proc_And	<stM-obj_Exist,stM-St_MK>
+	END_FUN
+	
+	;;проверка что стрелка Не охранное состояние стрелки к установленному маршруту,стрелка в котором по '+'
+	START_FUN	St_UnOhran_StMar_P,<stMrP>;стрелка непосредственно находящаяся в маршруте и ее положение(один из параметров NULL)
+			St_UnOhran_StMar_P:	Proc_Or		<stMrP-St_UnPK, stMrP-St_UnZM>
+	END_FUN
+	;;проверка что стрелка Не охранное состояние стрелки к установленному маршруту,стрелка в котором по '-'
+	START_FUN	St_UnOhran_StMar_M,<stMrM>;стрелка непосредственно находящаяся в маршруте и ее положение(один из параметров NULL)
+			St_UnOhran_StMar_M:	Proc_Or		<stMrM-St_UnMK, stMrM-St_UnZM>
+	END_FUN
+
+	
+	;;;проверка что стрелка не охранная к установленному маршруту  при проверке доступности перевода
+	;START_FUN	St_UnOhran,<stMrP, stMrM>;стрелка непосредственно находящаяся в маршруте и ее положение(один из параметров NULL)
+	;	St_UnOhran:	Proc_Or	<St_UnOhran1,St_UnOhran2>
+	;	
+	;		St_UnOhran1:	Proc_And	<stMrP-obj_Exist, St_UnOhran11>
+	;		St_UnOhran11:	Proc_Or		<stMrP-St_UnPK, stMrP-St_UnZM>
+	;		
+	;		St_UnOhran2:	Proc_And	<stMrM-obj_Exist, St_UnOhran21>
+	;		St_UnOhran21:	Proc_Or		<stMrM-St_UnMK, stMrM-St_UnZM>
+	;END_FUN
+	
+	;есть контроль у стрелки
+	START_FUN	ST_K,<st>
+		ST_K:	Proc_Or		<st-obj_UnExist,st-St_PKMK>
+	END_FUN
+	; Стрелки доступны для перевода в "+"
+	START_FUN	ST_Acc_P,<st>
+		ST_Acc_P:			Proc_Or		<st-St_PK,ST_Acc_P_1>
+		ST_Acc_P_1:			Proc_And	<st-St_Free,st-St_UnIr,st-St_UnZM,st-St_UnPrgBlk,st-St_UnOs,st-St_UnMu>
+	END_FUN
+	; Стрелки доступны для перевода в "-"
+	START_FUN	ST_Acc_M,<st>
+		ST_Acc_M:			Proc_Or		<st-St_MK,ST_Acc_M_1>
+		ST_Acc_M_1:			Proc_And	<st-St_Free,st-St_UnIr,st-St_UnZM,st-St_UnPrgBlk,st-St_UnOs,st-St_UnMu>
+	END_FUN
+	; Стрелки стрелки выбраны для перевода аварийно
+	START_FUN	ST_Vsa_chek,<st>
+		ST_Vsa_chek:			Proc_Or	<st-obj_UnExist,st-St_VSA>
+	END_FUN
+	; Стрелки в плюсовом положении
+	START_FUN	ST_PK_Cont,<ST>
+		ST_PK_Cont:	Proc_And	<st-St_PK,st-St_UnMu>
+	END_FUN
+	; Стрелки в минусовом положении
+	START_FUN	ST_MK_Cont,<ST>
+		ST_MK_Cont:	Proc_And	<st-St_MK,st-St_UnMu>
+	END_FUN
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////ПЕРЕГОН//////////////////////////////////////////
+;////////////////////////////////////////////////////////////////////////////////////
+	; Перегонный бокс не заблокирован
+	START_FUN	Peregon_box_Free,<PGB>
+		Peregon_box_Free:	Proc_And	<Pgb-Pgb_UnBlk>
+	END_FUN
+	; Перегон свободен или по отправлению
+	START_FUN	Peregon_Free_Depart,<PG>
+		Peregon_Free_Depart:	Proc_Or		<Pg-obj_UnExist,Pg-PG_Free,Pg-PG_Otpr>
+	END_FUN
+	
+	; Перегон по приему
+	START_FUN	Peregon_Recept,<PG>
+		Peregon_Recept:		Proc_Or		<Pg-obj_UnExist,Peregon_Recept1>
+		Peregon_Recept1:	Proc_And	<Pg-PG_Priem>
+	END_FUN
+	; Перегон по отправлению
+	START_FUN	Peregon_Depart,<PG>
+		Peregon_Depart:		Proc_Or		<Pg-obj_UnExist,Peregon_Depart1>
+		Peregon_Depart1:	Proc_And	<Pg-PG_Otpr>
+	END_FUN
+	; Перегон не заблокирован(отсутствие ключа-жезла, проверка двухпозиционного объекта блокировки <.ПБ>)
+	;START_FUN	Peregon_Dp_Free,<DPkj>;,PG,DPblk>
+	;	Peregon_Dp_Free: 	Proc_Or		<DPkj-obj_UnExist,DPkj-DP_s1>
+	;	;;Peregon_Dp_Free: 	Proc_Or		<Peregon_Dp_Free1,Peregon_Dp_Free2,Peregon_Dp_Free3>
+	;	;;;дали КЖ и ПЕРЕГОННУЮ СТРЕЛКУ
+	;	;;Peregon_Dp_Free1:	Proc_AND	<DPkj-obj_Exist,PG-obj_Exist,DPblk-obj_UnExist,Peregon_Dp_Free11>
+	;	;;Peregon_Dp_Free11:	Proc_NoAND	<DPkj-DP_s2,PG-PG_Busy>
+	;	;;;дали КЖ и БЛОКИРОВКУ ПЕРЕГОНА
+	;	;;Peregon_Dp_Free2:	Proc_AND	<DPkj-obj_Exist,PG-obj_UnExist,DPblk-obj_Exist,Peregon_Dp_Free21>
+	;	;;Peregon_Dp_Free21:	Proc_NoAND	<DPkj-DP_s2,DPblk-DP_s2>
+	;	;;;путь перегона неправильно напрвления
+	;	;;Peregon_Dp_Free3:	Proc_AND	<DPkj-obj_UnExist,PG-obj_Exist,DPblk-obj_UnExist>
+	;END_FUN
+	START_FUN	Peregon_Dp_Free,<DPkj,PG,DPblk>
+		;дали КЖ и ПЕРЕГОННУЮ СТРЕЛКУ и БЛОКИРОВКУ ПЕРЕГОНА
+		Peregon_Dp_Free:	Proc_AND	<Peregon_Dp_Free1,Peregon_Dp_Free2>
+		Peregon_Dp_Free1: 	Proc_Or		<DPkj-obj_UnExist,DPkj-DP_s1>
+				
+		Peregon_Dp_Free2: 	Proc_Or		<Pg-obj_UnExist,Peregon_Dp_Free21>
+		Peregon_Dp_Free21:	Proc_AND	<Pg-PG_Priem, Pg-PG_Free, DPblk-DP_s1>	
+	END_FUN
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////УУ\УП//////////////////////////////////////////
+;////////////////////////////////////////////////////////////////////////////////////
+	; Свободность первого участка-удаления
+	START_FUN	Uchastok_Free,<UP>
+		Uchastok_Free:		Proc_Or		<UP-obj_UnExist,UP-UP_Free>
+	END_FUN
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////ТАЙМЕРЫ//////////////////////////////////////////
+;////////////////////////////////////////////////////////////////////////////////////
+	;;Проверка таймеров
+	START_FUN	CheckTMDuring,<tm>
+		CheckTMDuring:	Proc_Or		<tm-obj_UnExist,tm-TM_During>
+	END_FUN
+	START_FUN	CheckTMOut,<tm>
+		CheckTMOut:	Proc_Or		<tm-obj_UnExist,tm-TM_TimeOut>
+	END_FUN
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////ДВУХПОЗИЦИОННЫЕ ОБЪЕКТЫ////////////////////////////
+;////////////////////////////////////////////////////////////////////////////////////
+	START_FUN	DP_Sost1,<dp>
+		DP_Sost1:	Proc_Or	<dp-obj_UnExist,dp-DP_s1>
+	END_FUN
+	START_FUN	DP_Sost2,<dp>
+		DP_Sost2:	Proc_Or	<dp-obj_UnExist,dp-DP_s2>
+	END_FUN
+	START_FUN	DP_Sost3,<dp>
+		DP_Sost3:	Proc_Or	<dp-obj_UnExist,dp-DP_s3>
+	END_FUN
+;////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////ЗАГЛУШКИ//////////////////////////////////////////
+;////////////////////////////////////////////////////////////////////////////////////
+	START_FUN	True_,<tm, NUobj>
+		True_:	Proc_And	<True_tm,NUobj-obj_UnExist>
+		True_tm:	Proc_Fun	CheckTMDuring,<tm>
+	END_FUN
+	START_FUN	False_,<tm, NUobj>
+		False_:		Proc_And	<False_tm,NUobj-obj_Exist>
+		False_tm:	Proc_Fun	CheckTMDuring,<tm>
+	END_FUN
+
+
+;////////////////////////////////////////////////////////////////////////////////////
+	START_FUN	CheckGngTmLRTm,<obj, tm>
+		CheckGngTmLRTm:	Proc_And	<obj-tm-obj_GngTmLRTm>
+	END_FUN
+	
+;////////////////////////////////////////////////////////////////////////////////////
+EndLcFun

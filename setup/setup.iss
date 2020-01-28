@@ -38,9 +38,13 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\dc-ug\bin\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
-Source: "..\dc-ug\dist\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
-Source: "src\{#MyAppIcoName}"; DestDir: "{app}"
+Source: "..\dist\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
+Source: "..\src\*"; DestDir: "{app}\src"; Flags: ignoreversion recursesubdirs createallsubdirs 
+Source: "{#MyAppIcoName}"; DestDir: "{app}"
+
+[Registry]
+Root: HKLM; Subkey: "SOFTWARE\DcUg"; ValueType: string; ValueName: "settings"; ValueData: "{app}\src\settings.json"; Flags: uninsdeletekey   
+
 
 [Icons]
 Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"

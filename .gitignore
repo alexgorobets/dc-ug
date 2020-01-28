@@ -102,7 +102,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -131,3 +130,7 @@ dmypy.json
 /setup/ДЦ-Юг/dcug-setup.exe
 /setup/ДЦ-Юг.zip
 /.idea/
+
+
+/Pipfile.lock
+

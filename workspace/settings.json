@@ -1,0 +1,27 @@
+{
+  "local machine": {
+    "bin_dir": "D:\\work\\projects_py\\dc-ug\\src\\bin",
+    "include_dir": "D:\\work\\projects_py\\dc-ug\\src\\include\\QNX650"
+  },
+  "local compiler": {
+    "exe_name": "jwasm.exe",
+    "targets": {
+      "stn": {
+        "incs": ["dcl_ts.inc", "dcl_tu.inc"],
+        "flags": "-bin"
+      },
+      "fkl": {
+        "incs": ["dcl_fkl.inc"],
+        "flags": "-mz"
+      },
+      "rts": {
+        "incs": ["dcl_rts.inc"],
+        "flags": "-mz"
+      },
+      "track": {
+        "incs": ["dcl_track.inc", "dcl_ts.inc"],
+        "flags": "-mz"
+      }
+    }
+  }
+}

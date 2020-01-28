@@ -1,0 +1,254 @@
+dcltrack.asm(10) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(10) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(10): Main line code
+dcltrack.asm(10) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(10): Main line code
+dcltrack.asm(10) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(10): Main line code
+dcltrack.asm(10) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(10): Main line code
+dcltrack.asm(10) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(10): Main line code
+dcltrack.asm(10) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(10): Main line code
+dcltrack.asm(11) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(11) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(11): Main line code
+dcltrack.asm(11) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(11): Main line code
+dcltrack.asm(11) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(11): Main line code
+dcltrack.asm(11) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(11): Main line code
+dcltrack.asm(11) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(11): Main line code
+dcltrack.asm(11) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(11): Main line code
+dcltrack.asm(12) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(12) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(12): Main line code
+dcltrack.asm(12) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(12): Main line code
+dcltrack.asm(12) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(12): Main line code
+dcltrack.asm(12) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(12): Main line code
+dcltrack.asm(12) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(12): Main line code
+dcltrack.asm(12) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(12): Main line code
+dcltrack.asm(13) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(13) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(13): Main line code
+dcltrack.asm(13) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(13): Main line code
+dcltrack.asm(13) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(13): Main line code
+dcltrack.asm(13) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(13): Main line code
+dcltrack.asm(13) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(13): Main line code
+dcltrack.asm(13) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(13): Main line code
+dcltrack.asm(14) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(14) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(14): Main line code
+dcltrack.asm(14) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(14): Main line code
+dcltrack.asm(14) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(14): Main line code
+dcltrack.asm(14) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(14): Main line code
+dcltrack.asm(14) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(14): Main line code
+dcltrack.asm(14) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(14): Main line code
+dcltrack.asm(15) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(15) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(15): Main line code
+dcltrack.asm(15) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(15): Main line code
+dcltrack.asm(15) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(15): Main line code
+dcltrack.asm(15) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(15): Main line code
+dcltrack.asm(15) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(15): Main line code
+dcltrack.asm(15) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(15): Main line code
+dcltrack.asm(16) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(16) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(16): Main line code
+dcltrack.asm(16) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(16): Main line code
+dcltrack.asm(16) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(16): Main line code
+dcltrack.asm(16) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(16): Main line code
+dcltrack.asm(16) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(16): Main line code
+dcltrack.asm(16) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(16): Main line code
+dcltrack.asm(17) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(17) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(17): Main line code
+dcltrack.asm(17) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(17): Main line code
+dcltrack.asm(17) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(17): Main line code
+dcltrack.asm(17) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(17): Main line code
+dcltrack.asm(17) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(17): Main line code
+dcltrack.asm(17) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(5)[dcl_track.inc]: Macro called from
+   dcltrack.asm(17): Main line code
+dcltrack.asm(18) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(18) : Error A2209: Syntax error: DB		
+ GenBox(5)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(18): Main line code
+dcltrack.asm(18) : Error A2209: Syntax error: DW       
+ GenBox(9)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(18): Main line code
+dcltrack.asm(18) : Error A2209: Syntax error: box
+ GenBox(12)[dcl_track.inc]: Macro called from
+  DclStnBox(2)[dcl_track.inc]: Macro called from
+   dcltrack.asm(18): Main line code
+dcltrack.asm(18) : Error A2113: Too many errors
+dcltrack.asm(19) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(20) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(21) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(22) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(23) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(24) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(26) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(27) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(28) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(29) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(30) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(31) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(33) : Warning A4149: Too many arguments in macro call: DclStnBox
+dcltrack.asm(37) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(38) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(39) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(40) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(41) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(42) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(43) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(46) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(47) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(48) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(49) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(50) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(51) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(52) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(53) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(54) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(55) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(56) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(57) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(58) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(59) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(60) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(61) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(62) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(63) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(64) : Warning A4149: Too many arguments in macro call: DclPrgBox
+dcltrack.asm(557) : Error A2080: Block nesting error: Cseg
