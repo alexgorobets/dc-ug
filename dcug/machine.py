@@ -2,6 +2,8 @@ import os
 from abc import ABC, abstractmethod
 from settings import *
 import subprocess
+import logging
+from dcug import *
 
 
 class Machine(ABC):
@@ -36,8 +38,13 @@ class LocalMachine(Machine):
 
     def run(self, cmd):
         try:
-            subprocess.run(cmd)
-            return cmd
+            res = subprocess.run(cmd, capture_output=True, text=True)
+            logger.info('Windows command line:' + prettify(res.args))
+            logger.info('Windows shell information:\n' +
+                        '=========================================\n' +
+                        res.stdout +
+                        '=========================================')
+
         except FileNotFoundError as err:
             print(err)
 
