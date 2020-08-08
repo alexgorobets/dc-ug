@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from settings import *
+from dcug.settings_parsing import *
 import subprocess
 import logging
 from dcug import *

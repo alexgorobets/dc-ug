@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from enum import Enum, auto
 
-from settings import *
-from machine import *
+from dcug.settings_parsing import *
+from dcug.machine import *
 import os
 
 

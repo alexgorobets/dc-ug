@@ -1,5 +1,5 @@
 from dcug import *
-from compiler import *
+from dcug.compiler import *
 
 
 def run(args=None):
@@ -11,6 +11,7 @@ def run(args=None):
 
     try:
         if args[1] == 'compile':
+            
             machine = LocalMachine(**settings["local machine"])
             logger.info(machine)
 
