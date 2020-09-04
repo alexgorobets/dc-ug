@@ -6,6 +6,7 @@ __version__ = 1.0
 
 import sys
 import winreg
+from pathlib import Path
 
 from environs import Env
 
@@ -16,7 +17,7 @@ HELP_MESSAGE = """This is a help message
 """  # TODO create help message
 
 try:
-    Env().read_env('../variables.env')
+    Env().read_env(Path(__file__).parent.joinpath('variables.env'))
 except OSError:
     pass
 
@@ -29,7 +30,6 @@ class StreamToLogger(object):
     """
     Fake file-like stream object that redirects writes to a logger instance.
     """
-
     def __init__(self, logger, log_level=logging.INFO):
         self.logger = logger
         self.log_level = log_level

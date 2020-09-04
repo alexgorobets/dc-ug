@@ -1,7 +1,7 @@
 {
   "local machine": {
-    "bin_dir": "D:\\work\\projects_py\\dc-ug\\src\\bin",
-    "include_dir": "D:\\work\\projects_py\\dc-ug\\src\\include\\QNX650"
+    "bin_dir": "D:\\py-projects\\dc-ug\\src\\bin",
+    "include_dir": "D:\\py-projects\\dc-ug\\src\\include\\QNX650"
   },
   "local compiler": {
     "exe_name": "jwasm.exe",

@@ -1,5 +1,11 @@
-import dcug.__main__
+import sys
+import os
 
+# Add 'dcug' package folder in the list of Python interpreter's pathes
+sys.path.append(os.path.abspath('./'))
+print(os.path.abspath('./'))
+
+import dcug.__main__
 
 dcug.__main__.run([
     'test', 'compile', 'dclnvc.asm', 'as', 'stn'

@@ -45,6 +45,8 @@ class LocalMachine(Machine):
                         res.stdout +
                         '=========================================')
 
+            return res
+
         except FileNotFoundError as err:
             print(err)
 

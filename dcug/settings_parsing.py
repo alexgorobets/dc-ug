@@ -8,8 +8,9 @@ class SettingsFileNotFoundError(FileNotFoundError): pass
 
 
 class Settings(ABC):
-    """The Settings defines the interface for loading and modifying the main settings of the application"""
-
+    """
+    The Settings defines the interface for loading and modifying the main settings of the application
+    """
     def __init__(self, settings=None):
         self.values = self.load(settings)
 

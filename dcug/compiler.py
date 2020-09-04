@@ -40,7 +40,7 @@ class JwasmCompiler(Compiler):
                f'-Fw="{err_file_name}"',
                file]
         self.machine.clean(err_file_name)
-        self.machine.run(cmd)
+        return self.machine.run(cmd)
         # dirn, _ = os.path.split(os.path.abspath(file))
         # for file in os.listdir(os.path.abspath(dirn)):
         #     if '.exe' in file.lower():
