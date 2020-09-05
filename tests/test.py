@@ -8,7 +8,7 @@ print(os.path.abspath('./'))
 import dcug.__main__
 
 dcug.__main__.run([
-    'test', 'compile', 'dclnvc.asm', 'as', 'stn'
+    'compile', 'tests/test_central_post/dclnvc.asm', 'as', 'stn'
 ])
 
 # dcug.__main__.run([

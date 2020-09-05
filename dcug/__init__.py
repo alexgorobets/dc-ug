@@ -8,7 +8,7 @@ import sys
 import winreg
 from pathlib import Path
 
-from environs import Env
+# from environs import Env
 
 APP_NAME = 'DcUg'
 SETTINGS_KEY_NAME = 'settings'
@@ -16,10 +16,10 @@ SETTINGS_KEY_NAME = 'settings'
 HELP_MESSAGE = """This is a help message
 """  # TODO create help message
 
-try:
-    Env().read_env(Path(__file__).parent.joinpath('variables.env'))
-except OSError:
-    pass
+# try:
+#     Env().read_env(Path(__file__).parent.joinpath('variables.env'))
+# except OSError:
+#     pass
 
 
 def prettify(args):
@@ -40,41 +40,33 @@ class StreamToLogger(object):
             self.logger.log(self.log_level, line.rstrip())
 
 
-def load_settings(settings_key_name):
+def load_settings(settings_key_name, settings_file=None):
     """
-    Function that loads settings from settings_file which is found via a virtual environment or a Windows key
+    Function that loads settings from settings_file which is found whether in a virtual environment or in Windows registry
     :param settings_key_name:
     :return:
     """
-
     if os.name == 'nt':
-
         proc_arch = os.getenv('PROCESSOR_ARCHITECTURE', '').lower()
-
         if proc_arch == 'amd64' or proc_arch == 'x86':
             sub_key = 'SOFTWARE\\WOW6432Node\\%s' % APP_NAME
         else:
             raise Exception("Unhandled arch: %s" % proc_arch)
 
-        _settings_file = os.getenv(settings_key_name, None)  # get settings_file name from variables.env
+        # settings_file = os.getenv(settings_key_name, None)  # get settings_file name from variables.env
 
         try:
-            if not _settings_file:  # if does not exist try to get settings_file name from win registry
+            if not settings_file:  # if does not exist try to get settings_file name from win registry
                 with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, sub_key, 0, winreg.KEY_READ) as key:
-                    _settings_file = winreg.QueryValueEx(key, settings_key_name)[0]
+                    settings_file = winreg.QueryValueEx(key, settings_key_name)[0]
 
         except FileNotFoundError as err:  # if key 'DcUg' not found in win registry triggers the error message
             logger.error('key \'%s\' or its value name \'settings\' do not exist' % APP_NAME)
 
-        with open(_settings_file) as fp:
-            _settings = json.load(fp)
+        with open(settings_file) as fp:
+            settings = json.load(fp)
 
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-        _error_handler = logging.FileHandler('PythonErr.log')
-        _error_handler.setFormatter(formatter)
-
-    return _settings, _settings_file, _error_handler
+    return settings, settings_file
 
 
 logging.basicConfig(level=logging.INFO,
@@ -82,8 +74,10 @@ logging.basicConfig(level=logging.INFO,
 
 logger = logging.getLogger(APP_NAME)
 python_err_logger = logging.getLogger('PythonERR')
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-settings, settings_file, error_handler = load_settings(SETTINGS_KEY_NAME)
+error_handler = logging.FileHandler('PythonErr.log')
+error_handler.setFormatter(formatter)
 
 python_err_logger.addHandler(error_handler)
 

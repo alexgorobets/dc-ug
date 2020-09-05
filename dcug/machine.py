@@ -44,11 +44,10 @@ class LocalMachine(Machine):
                         '=========================================\n' +
                         res.stdout +
                         '=========================================')
-
             return res
 
         except FileNotFoundError as err:
-            print(err)
+            logger.error(err)
 
     def clean(self, file=None):
         try:

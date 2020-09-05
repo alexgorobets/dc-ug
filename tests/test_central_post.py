@@ -22,12 +22,12 @@ class TestStnCompilation:
 
 
     def test_kuz_campilation(self):
-        res = dcug.__main__.run(['test', 'compile', self.get_path(self.rel_path ,'dclkuz_ok.asm'), 'as', 'stn'])
-        print(prettify(res.args))
+        res = dcug.__main__.run(['compile', self.get_path(self.rel_path ,'dclkuz.asm'), 'as', 'stn'])
         print(res.stdout)
+        print(prettify(res.args))
 
         assert filecmp.cmp(
-            self.get_path(self.rel_path, 'dclkuz_ok.dat'), 
-            self.get_path(self.rel_path, 'successfully_compiled', 'dclkuz_ok.dat')
+            self.get_path(self.rel_path, 'dclkuz.dat'), 
+            self.get_path(self.rel_path, 'successfully_compiled', 'dclkuz.dat')
         ), "dclkuz_ok.asm is wrongly compiled"
         

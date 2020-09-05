@@ -53,9 +53,9 @@ class JwasmCompilerBuilder:
         self.targets = targets
         self.compiler = JwasmCompiler(machine, exe_name)
 
-    def target(self, target_name):
-        self.compiler.set_incs(self.targets[target_name]["incs"])
-        self.compiler.flags = self.targets[target_name]['flags']
+    def target(self, target):
+        self.compiler.set_incs(self.targets[target]["incs"])
+        self.compiler.flags = self.targets[target]['flags']
         return self
 
     def with_flags(self, flags):
