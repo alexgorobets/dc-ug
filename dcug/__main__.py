@@ -5,17 +5,13 @@ from dcug import *
 from dcug.compiler import *
 
 
-settings_file='tests/settings.json'
-settings, settings_file = load_settings(SETTINGS_KEY_NAME, settings_file)
-
-
 def compile(args):
     '''
     Compile method runs if the command 'compile' is invoked in a command line
     '''
-    machine = LocalMachine(**settings["local machine"])
+    machine = LocalMachine(**compile.settings["local machine"])
     logger.info(machine)
-    jwasm = JwasmCompilerBuilder(machine=machine, **settings["local compiler"]).target(args.target).build()
+    jwasm = JwasmCompilerBuilder(machine=machine, **compile.settings["local compiler"]).target(args.target).build()
     return jwasm.compile(args.file)
 
 
@@ -38,11 +34,22 @@ compile_cmd.set_defaults(func=compile)
 
 
 def run(args=None):
-    args = args or sys.argv
+    # if run.settings_file is None then load_settings function is searching settings_file in win registry
+    # On finding the settings file it loads settings frim that file
+    settings, settings_file = load_settings(SETTINGS_KEY_NAME, run.settings_file)
+
+    args = args or sys.argv[1:]
+
     logger.info('settings file is loaded: %s' % settings_file)
     logger.info('command parameters:' + prettify(args))
+
     validated_args = parser.parse_args(args)
+    # validated_args.func returns 'compile' function if compile command is found in command line
+    validated_args.func.settings = settings
+
     return validated_args.func(validated_args)
+
+run.settings_file = None
 
 
 if __name__ == '__main__':

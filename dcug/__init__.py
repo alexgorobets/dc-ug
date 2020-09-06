@@ -8,19 +8,9 @@ import sys
 import winreg
 from pathlib import Path
 
-# from environs import Env
 
 APP_NAME = 'DcUg'
 SETTINGS_KEY_NAME = 'settings'
-
-HELP_MESSAGE = """This is a help message
-"""  # TODO create help message
-
-# try:
-#     Env().read_env(Path(__file__).parent.joinpath('variables.env'))
-# except OSError:
-#     pass
-
 
 def prettify(args):
     return '\n\t' + '\n\t'.join(args)

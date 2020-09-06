@@ -3,7 +3,6 @@ import os
 
 # Add 'dcug' package folder in the list of Python interpreter's pathes
 sys.path.append(os.path.abspath('./'))
-print(os.path.abspath('./'))
 
 import dcug.__main__
 
