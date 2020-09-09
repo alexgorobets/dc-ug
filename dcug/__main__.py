@@ -16,7 +16,8 @@ def compile(args):
 
 
 parser = argparse.ArgumentParser(prog='dcug',
-                                 description='Compile DcUg files.')
+                                 description='Compile DcUg files.',
+                                 add_help=True)
 subparsers = parser.add_subparsers(title='commands',
                                    description='valid commands',
                                    help='additional help')
@@ -43,11 +44,15 @@ def run(args=None):
     logger.info('settings file is loaded: %s' % settings_file)
     logger.info('command parameters:' + prettify(args))
 
-    validated_args = parser.parse_args(args)
-    # validated_args.func returns 'compile' function if compile command is found in command line
-    validated_args.func.settings = settings
+    try:
+        validated_args = parser.parse_args(args)
+        # validated_args.func returns 'compile' function if compile command is found in command line
+        validated_args.func.settings = settings
+        return validated_args.func(validated_args)
 
-    return validated_args.func(validated_args)
+    except AttributeError:
+        parser.print_help()
+        sys.exit(0)
 
 run.settings_file = None
 
