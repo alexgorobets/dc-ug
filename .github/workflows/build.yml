@@ -6,7 +6,7 @@ name: Build
 # or API.
 on:  
   push:
-    branches: [ test ]
+    branches: [ master ]
     tags:
       - 'v*'
 
@@ -21,29 +21,27 @@ jobs:
         python-version: [3.8]
 
     steps:
-    # - name: Checkout code
-    #   uses: actions/checkout@v2
-    # - name: Set up Python ${{ matrix.python-version }}
-    #   uses: actions/setup-python@v2
-    #   with:
-    #     python-version: ${{ matrix.python-version }}
-    # - name: Install dependencies
-    #   run: |
-    #     python -m pip install --upgrade pip
-    #     pip install -r requirements.txt
-    # - name: Run PyInstaller
-    #   run: |
-    #     # build executables
-    #     python build_script.py
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run PyInstaller
+      run: |
+        # build executables
+        python build_script.py
     - name: Install InnoSetup
       run: |
         curl -SL "http://files.jrsoftware.org/is/6/innosetup-6.0.5.exe" -o iscc-setup.exe
-    - run: |
         .\iscc-setup.exe /SP- /VERYSILENT /ALLUSERS /SUPPRESSMSGBOXES
-    - run: |
-        ls "C:\Program Files\"
-    - run: |
-        & "C:\Program Files\Inno Setup 6\ISCC.EXE" .\setup\setup.iss
+    - name: Create Win Setup package
+      run: |
+        & "C:\Program Files (x86)\Inno Setup 6\ISCC.EXE" .\setup\setup.iss
     - name: Make Release
       uses: softprops/action-gh-release@v1
       with:
