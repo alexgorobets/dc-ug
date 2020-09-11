@@ -6,7 +6,7 @@ name: Build
 # or API.
 on:  
   push:
-    branches: [ master ]
+    branches: [ master, test ]
     tags:
       - 'v*'
 
@@ -42,11 +42,14 @@ jobs:
     - name: Create Win Setup package
       run: |
         & "C:\Program Files (x86)\Inno Setup 6\ISCC.EXE" .\setup\setup.iss
+
+    - run: ls .\setup\
+
     - name: Make Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          .\setup\ДЦ-Юг\dcug-setup.exe
+          .\setup\output\dcug-setup.exe
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
