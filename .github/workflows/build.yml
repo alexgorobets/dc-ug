@@ -6,7 +6,6 @@ name: Build
 # or API.
 on:  
   push:
-    branches: [ master, test ]
     tags:
       - 'v*'
 
@@ -42,9 +41,7 @@ jobs:
     - name: Create Win Setup package
       run: |
         & "C:\Program Files (x86)\Inno Setup 6\ISCC.EXE" .\setup\setup.iss
-
-    - run: ls .\setup\
-
+        ls .\setup\
     - name: Make Release
       uses: softprops/action-gh-release@v1
       with:
