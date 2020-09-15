@@ -17,10 +17,10 @@ AppName={#MyAppName}
 AppVersion={#Version}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-DefaultDirName={pf}\DcUg
+DefaultDirName={commonpf}\DcUg
 DisableProgramGroupPage=yes
 OutputDir="output"
-OutputBaseFilename=dcug-setup
+OutputBaseFilename=dcug-setup-{#Version}
 Compression=lzma
 SolidCompression=yes
 ChangesEnvironment=yes
@@ -41,8 +41,8 @@ Source: "..\dist\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs c
 Source: "..\src\*"; DestDir: "{app}\src"; Flags: ignoreversion recursesubdirs createallsubdirs 
 Source: "{#MyAppIcoName}"; DestDir: "{app}"
 Source: "dosbox-0.74.conf"; DestDir: "{localappdata}\DOSBox"; Flags: ignoreversion 
-Source: "lpu-bin\*"; DestDir: "{pf}\DOSBox-0.74\lpu-bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
-Source: "DOSBox0.74-win32-installer.exe"; DestDir: "{pf}\DOSBox-0.74"; Flags: ignoreversion deleteafterinstall
+Source: "lpu-bin\*"; DestDir: "{commonpf}\DOSBox-0.74\lpu-bin"; Flags: ignoreversion recursesubdirs createallsubdirs 
+Source: "DOSBox0.74-win32-installer.exe"; DestDir: "{commonpf}\DOSBox-0.74"; Flags: ignoreversion deleteafterinstall
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
@@ -53,11 +53,11 @@ Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{pf}\DOSBox-0.74\DOSBox0.74-win32-installer.exe"; Parameters: "/S"
+Filename: "{commonpf}\DOSBox-0.74\DOSBox0.74-win32-installer.exe"; Parameters: "/S"
 Filename: "{app}\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
-Filename: "{pf}\DOSBox-0.74\uninstall.exe"; Parameters: "/S"
+Filename: "{commonpf}\DOSBox-0.74\uninstall.exe"; Parameters: "/S"
 
 [Code]
 procedure CurStepChanged(CurStep: TSetupStep);

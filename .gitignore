@@ -127,9 +127,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-/setup/output/dcug-setup.exe
-/setup/output.zip
-/setup/ДЦ-Юг.zip
+/setup/output/dcug-setup*.exe
+/setup/output*.zip
 /.idea/
 
 
