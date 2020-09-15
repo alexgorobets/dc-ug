@@ -49,11 +49,11 @@ jobs:
         & "C:\Program Files (x86)\Inno Setup 6\ISCC.EXE" .\setup\setup.iss /DVersion=${{ steps.tagName.outputs.tag }}
         ls .\setup\output
         [System.Text.Encoding]::Default
-    - name: Install Zip archive
+    - name: Install Zip package
       run: |
         curl -SL "https://www.7-zip.org/a/7z2002-x64.exe" -o 7z2002-x64.exe
         .\7z2002-x64.exe /SP- /VERYSILENT /ALLUSERS /SUPPRESSMSGBOXES
-    - name: Install Zip manager
+    - name: Create Zip release archive
       run: |
         & "C:\Program Files\7-Zip\7z.exe" a .\setup\output\dcug-setup-${{ steps.tagName.outputs.tag }}.zip .\setup\output\*
     - name: Make Release
